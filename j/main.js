@@ -42,6 +42,10 @@
   
   /**
    * Highlight the JSON string
+   *
+   * @param {String} json - input JSON string to be highlighted
+   *
+   * @returns {String}
    */
   function syntaxHighlight(json) {
     // highlight object property keys
@@ -80,11 +84,10 @@
    */
   function highlightByType(input, type, matcher) {
     var cssClass = CLASS_MAPPINGS[type] || '';
-
-    input = input.replace(new RegExp('^(\\s+' + matcher + ')$', regexModifiers), '<span class="' + cssClass + '">$1</span>');
-    input = input.replace(new RegExp('^(\\s+' + matcher + '),$', regexModifiers), '<span class="' + cssClass + '">$1</span>,');
-    input = input.replace(new RegExp(': (' + matcher + '),$', regexModifiers), ': <span class="' + cssClass + '">$1</span>,');
-    input = input.replace(new RegExp(': (' + matcher + ')$', regexModifiers), ': <span class="' + cssClass + '">$1</span>');
+    // Replace standalone values like "  2," to " <span class='n'>2</span>"
+    input = input.replace(new RegExp('^(\\s*)(' + matcher + ')(,?)$', regexModifiers), '$1<span class="' + cssClass + '">$2</span>$3');
+    // Replace property values like "foo: 2," to "foo: <span class='n'>2</span>"
+    input = input.replace(new RegExp(': (' + matcher + ')(,?)$', regexModifiers), ': <span class="' + cssClass + '">$1</span>$2');
 
     return input;
   }
