@@ -56,7 +56,7 @@
     // highlight string values
     json = highlightByType(json, 'string', '".*?"');
     // highlight number values
-    json = highlightByType(json, 'number', '[0-9.e+]*?');
+    json = highlightByType(json, 'number', '-?[0-9.e+]+?');
     // highlight boolean values
     json = highlightByType(json, 'boolean', '(true|false)');
 
