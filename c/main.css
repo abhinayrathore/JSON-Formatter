@@ -71,6 +71,7 @@ pre {
 	font-size: 12px;
 	margin: 20px 0;
 	color: #222;
+	overflow-x: auto;
 }
 pre:empty {
 	display: none;
